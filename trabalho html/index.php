@@ -2,15 +2,33 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/includes/db.php';
-
-$artigos = $pdo->query(
-    'SELECT a.titulo, a.categoria, a.data_publicacao, a.imagem_capa, a.conteudo, ad.nome AS autor
-     FROM artigos a
-     INNER JOIN admins ad ON ad.id = a.admin_id
-     ORDER BY a.data_publicacao DESC, a.id DESC
-     LIMIT 12'
-)->fetchAll();
+// Artigos de exemplo (quando banco não está disponível)
+$artigos = [
+    [
+        'titulo' => 'Como manter a saude da pele no inverno',
+        'categoria' => 'Dermatologia',
+        'data_publicacao' => '2026-07-10',
+        'imagem_capa' => 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400',
+        'conteudo' => 'O inverno traz desafios especiais para a saude da pele. Confira nossas dicas...',
+        'autor' => 'Dr. Charles Genehr'
+    ],
+    [
+        'titulo' => 'Nutrologia: alimentacao para pele radiante',
+        'categoria' => 'Nutrologia',
+        'data_publicacao' => '2026-07-08',
+        'imagem_capa' => 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
+        'conteudo' => 'A nutricao e fundamental para uma pele saudavel e radiante. Saiba quais alimentos...',
+        'autor' => 'Dr. Charles Genehr'
+    ],
+    [
+        'titulo' => 'Acne em adultos: causas e tratamentos',
+        'categoria' => 'Dermatologia',
+        'data_publicacao' => '2026-07-05',
+        'imagem_capa' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400',
+        'conteudo' => 'Muitos adultos sofrem com acne. Descubra como tratar efetivamente...',
+        'autor' => 'Dr. Charles Genehr'
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
