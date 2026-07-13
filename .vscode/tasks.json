@@ -2,34 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Iniciar MariaDB Local",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-Command",
-        "& 'C:\\Program Files\\MariaDB 12.3\\bin\\mariadbd.exe' --defaults-file='C:\\Program Files\\MariaDB 12.3\\data\\my.ini' --console"
-      ],
-      "isBackground": true,
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated",
-        "clear": false
-      }
-    },
-    {
       "label": "Rodar Site PHP (localhost:8000)",
       "type": "shell",
-      "command": "powershell",
+      "command": "php",
       "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-Command",
-        "& 'C:\\Users\\Fernando\\AppData\\Local\\Microsoft\\WinGet\\Packages\\PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe\\php.exe' -S localhost:8000 -t 'c:\\Users\\Fernando\\git\\trabalho html'"
+        "-S",
+        "localhost:8000",
+        "-t",
+        "trabalho html"
       ],
       "isBackground": true,
       "problemMatcher": [],
@@ -38,15 +18,6 @@
         "panel": "dedicated",
         "clear": false
       }
-    },
-    {
-      "label": "Subir Ambiente Local (MariaDB + PHP)",
-      "dependsOn": [
-        "Iniciar MariaDB Local",
-        "Rodar Site PHP (localhost:8000)"
-      ],
-      "dependsOrder": "parallel",
-      "problemMatcher": []
     }
   ]
 }
