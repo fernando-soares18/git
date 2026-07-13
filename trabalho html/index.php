@@ -226,8 +226,6 @@ $artigos = $pdo->query(
         <div class="container">
             <div class="section-header">
                 <p class="eyebrow">Artigos</p>
-                <h2>Conteudos publicados no painel</h2>
-                <p>Novos artigos aparecem automaticamente aqui assim que voce publicar no painel.</p>
             </div>
 
             <?php if (count($artigos) === 0): ?>
