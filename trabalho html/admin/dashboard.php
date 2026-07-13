@@ -12,9 +12,81 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['csrf_token'] ?? '';
+    $action = $_POST['action'] ?? 'publish';
 
     if (!validate_csrf($token)) {
         $error = 'Token de seguranca invalido. Recarregue a pagina e tente novamente.';
+    } elseif ($action === 'delete') {
+        $artigoId = (int) ($_POST['artigo_id'] ?? 0);
+
+        if ($artigoId <= 0) {
+            $error = 'Artigo invalido para exclusao.';
+        } else {
+            $findStmt = $pdo->prepare('SELECT imagem_capa FROM artigos WHERE id = :id LIMIT 1');
+            $findStmt->execute(['id' => $artigoId]);
+            $artigo = $findStmt->fetch();
+
+            if (!$artigo) {
+                $error = 'Artigo nao encontrado.';
+            } else {
+                $deleteStmt = $pdo->prepare('DELETE FROM artigos WHERE id = :id');
+                $deleteStmt->execute(['id' => $artigoId]);
+
+                $imagePath = (string) ($artigo['imagem_capa'] ?? '');
+                if ($imagePath !== '' && str_starts_with($imagePath, 'uploads/capas/')) {
+                    $absoluteImagePath = __DIR__ . '/../' . $imagePath;
+                    if (is_file($absoluteImagePath)) {
+                        @unlink($absoluteImagePath);
+                    }
+                }
+
+                $success = 'Artigo excluido com sucesso.';
+            }
+        }
+    } elseif ($action === 'delete_selected') {
+        $selectedIds = $_POST['artigo_ids'] ?? [];
+
+        if (!is_array($selectedIds) || count($selectedIds) === 0) {
+            $error = 'Selecione pelo menos um artigo para excluir.';
+        } else {
+            $validIds = [];
+            foreach ($selectedIds as $selectedId) {
+                $id = (int) $selectedId;
+                if ($id > 0) {
+                    $validIds[] = $id;
+                }
+            }
+
+            $validIds = array_values(array_unique($validIds));
+
+            if (count($validIds) === 0) {
+                $error = 'Nenhum artigo valido foi selecionado.';
+            } else {
+                $placeholders = implode(',', array_fill(0, count($validIds), '?'));
+
+                $findStmt = $pdo->prepare("SELECT imagem_capa FROM artigos WHERE id IN ($placeholders)");
+                $findStmt->execute($validIds);
+                $artigosSelecionados = $findStmt->fetchAll();
+
+                $deleteStmt = $pdo->prepare("DELETE FROM artigos WHERE id IN ($placeholders)");
+                $deleteStmt->execute($validIds);
+                $deletedCount = (int) $deleteStmt->rowCount();
+
+                foreach ($artigosSelecionados as $artigoSelecionado) {
+                    $imagePath = (string) ($artigoSelecionado['imagem_capa'] ?? '');
+                    if ($imagePath !== '' && str_starts_with($imagePath, 'uploads/capas/')) {
+                        $absoluteImagePath = __DIR__ . '/../' . $imagePath;
+                        if (is_file($absoluteImagePath)) {
+                            @unlink($absoluteImagePath);
+                        }
+                    }
+                }
+
+                $success = $deletedCount === 1
+                    ? '1 artigo excluido com sucesso.'
+                    : $deletedCount . ' artigos excluidos com sucesso.';
+            }
+        }
     } else {
         $titulo = trim($_POST['titulo'] ?? '');
         $categoria = trim($_POST['categoria'] ?? '');
@@ -33,8 +105,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             $tmpPath = $_FILES['capa']['tmp_name'];
-            $fileInfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $fileInfo->file($tmpPath) ?: '';
+            $mime = '';
+
+            if (class_exists('finfo')) {
+                $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+                $mime = $fileInfo->file($tmpPath) ?: '';
+            }
+
+            if ($mime === '' && function_exists('mime_content_type')) {
+                $mime = mime_content_type($tmpPath) ?: '';
+            }
+
+            if ($mime === '') {
+                $imageInfo = @getimagesize($tmpPath);
+                if (is_array($imageInfo) && !empty($imageInfo['mime'])) {
+                    $mime = (string) $imageInfo['mime'];
+                }
+            }
 
             if (!isset($allowedMime[$mime])) {
                 $error = 'Formato de imagem nao suportado. Use JPG, PNG ou WEBP.';
@@ -70,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $artigos = $pdo->query(
-    'SELECT a.id, a.titulo, a.categoria, a.data_publicacao, a.created_at, ad.nome AS autor
+    'SELECT a.id, a.titulo, a.categoria, a.data_publicacao, a.imagem_capa, a.created_at, ad.nome AS autor
      FROM artigos a
      INNER JOIN admins ad ON ad.id = a.admin_id
      ORDER BY a.data_publicacao DESC, a.id DESC'
@@ -113,6 +200,7 @@ $artigos = $pdo->query(
 
         <form class="admin-form" method="post" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+            <input type="hidden" name="action" value="publish">
 
             <label for="titulo">Titulo</label>
             <input id="titulo" name="titulo" type="text" required>
@@ -138,15 +226,36 @@ $artigos = $pdo->query(
         <?php if (count($artigos) === 0): ?>
             <p>Nenhum artigo publicado ainda.</p>
         <?php else: ?>
+            <form id="bulk-delete-form" method="post" class="admin-bulk-actions" onsubmit="return confirm('Tem certeza que deseja excluir os artigos selecionados?');">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+                <input type="hidden" name="action" value="delete_selected">
+                <button type="submit" class="admin-delete-btn admin-delete-bulk-btn">Excluir selecionados</button>
+            </form>
+
             <div class="admin-list">
                 <?php foreach ($artigos as $artigo): ?>
                     <article>
+                        <label class="admin-select-row">
+                            <input
+                                type="checkbox"
+                                name="artigo_ids[]"
+                                value="<?= (int) $artigo['id'] ?>"
+                                form="bulk-delete-form"
+                            >
+                            Selecionar para exclusao em lote
+                        </label>
                         <h3><?= htmlspecialchars($artigo['titulo'], ENT_QUOTES, 'UTF-8') ?></h3>
                         <p>
                             <?= htmlspecialchars($artigo['categoria'], ENT_QUOTES, 'UTF-8') ?> |
                             <?= date('d/m/Y', strtotime((string) $artigo['data_publicacao'])) ?> |
                             por <?= htmlspecialchars($artigo['autor'], ENT_QUOTES, 'UTF-8') ?>
                         </p>
+                        <form method="post" onsubmit="return confirm('Tem certeza que deseja excluir este artigo?');">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="artigo_id" value="<?= (int) $artigo['id'] ?>">
+                            <button type="submit" class="admin-delete-btn">Excluir artigo</button>
+                        </form>
                     </article>
                 <?php endforeach; ?>
             </div>
