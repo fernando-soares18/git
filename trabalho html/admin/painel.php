@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+// ⚠️ Proteção: NÃO incluir db.php para não tentar conectar ao banco
+// Este painel usa JSON, não precisa de MySQL!
+
 // Caminho do arquivo JSON de artigos
 $artigos_file = __DIR__ . '/artigos.json';
 

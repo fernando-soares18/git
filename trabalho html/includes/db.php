@@ -19,6 +19,8 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 } catch (PDOException $exception) {
-    http_response_code(500);
-    exit('Erro ao conectar no banco de dados: ' . $exception->getMessage());
+    // Se não conseguir conectar, deixa a variável $pdo undefined
+    // Isso permite que páginas que não usam banco (como painel.php) funcionem normalmente
+    // Páginas que precisam de $pdo devem verificar se ela existe
+    error_log('Erro ao conectar no banco de dados: ' . $exception->getMessage());
 }
