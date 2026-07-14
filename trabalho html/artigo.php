@@ -2,9 +2,28 @@
 
 declare(strict_types=1);
 
-// Lista de artigos completa
-$artigos_completos = [
-    'comida-10' => [
+// Tentar carregar artigos do JSON (painel de administração)
+$artigos_json_file = __DIR__ . '/admin/artigos.json';
+$artigos_completos = [];
+
+if (file_exists($artigos_json_file)) {
+    $json_content = file_get_contents($artigos_json_file);
+    $artigos_array = json_decode($json_content, true);
+    
+    // Converter array para formato chave=>valor por ID
+    if (is_array($artigos_array)) {
+        foreach ($artigos_array as $artigo) {
+            if (isset($artigo['id'])) {
+                $artigos_completos[$artigo['id']] = $artigo;
+            }
+        }
+    }
+}
+
+// Se JSON não carregou, usar fallback hardcoded
+if (empty($artigos_completos)) {
+    $artigos_completos = [
+        'comida-10' => [
         'titulo' => 'Nutrição que transforma sua pele de dentro para fora',
         'categoria' => 'Comida 10',
         'data_publicacao' => '2026-07-10',
@@ -180,7 +199,8 @@ $artigos_completos = [
         <p>Sua pele e o reflexo de uma vida alinhada. Cultive habitos que honram seu corpo, mente e espírito.</p>',
         'autor' => 'Dr. Charles Genehr'
     ]
-];
+    ];
+}
 
 // Obter ID do artigo da URL
 $id = isset($_GET['id']) ? (string) $_GET['id'] : '';
