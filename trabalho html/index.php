@@ -240,48 +240,40 @@ $artigos = [
         </div>
     </section>
 
-    <section id="artigos" class="articles-section">
+    <section id="artigos" class="learn-section">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Artigos</p>
+                <p class="eyebrow">Aprenda Conosco</p>
+                <h2>Conhecimento para sua saude integral</h2>
+                <p>Explore topicos essenciais sobre nutricao, bem-estar, medicina integrativa e estilo de vida saudavel.</p>
             </div>
 
-            <?php if (count($artigos) === 0): ?>
-                <div class="article-empty">
-                    <p>Nenhum artigo publicado ainda. Acesse o <a href="admin/login.php">painel exclusivo</a> para criar o primeiro.</p>
-                </div>
-            <?php else: ?>
-                <div class="articles-grid">
-                    <?php foreach ($artigos as $artigo): ?>
-                        <?php
-                        $plainText = strip_tags((string) $artigo['conteudo']);
-                        if (function_exists('mb_substr') && function_exists('mb_strlen')) {
-                            $preview = mb_substr($plainText, 0, 220);
-                            if (mb_strlen($plainText) > 220) {
-                                $preview .= '...';
-                            }
-                        } else {
-                            $preview = substr($plainText, 0, 220);
-                            if (strlen($plainText) > 220) {
-                                $preview .= '...';
-                            }
-                        }
-                        ?>
-                        <article class="article-card">
-                            <img src="<?= htmlspecialchars((string) $artigo['imagem_capa'], ENT_QUOTES, 'UTF-8') ?>" alt="Capa do artigo <?= htmlspecialchars((string) $artigo['titulo'], ENT_QUOTES, 'UTF-8') ?>">
-                            <div class="article-card-body">
-                                <div class="article-meta">
-                                    <span><?= htmlspecialchars((string) $artigo['categoria'], ENT_QUOTES, 'UTF-8') ?></span>
-                                    <span><?= date('d/m/Y', strtotime((string) $artigo['data_publicacao'])) ?></span>
-                                </div>
-                                <h3><?= htmlspecialchars((string) $artigo['titulo'], ENT_QUOTES, 'UTF-8') ?></h3>
-                                <p><?= htmlspecialchars($preview, ENT_QUOTES, 'UTF-8') ?></p>
-                                <small>Por <?= htmlspecialchars((string) $artigo['autor'], ENT_QUOTES, 'UTF-8') ?></small>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+            <div class="learn-list">
+                <a href="artigo.php?id=comida-10" class="learn-list-item">
+                    <span class="learn-list-category">Comida 10</span>
+                    <span class="learn-list-title">Nutrição que transforma sua pele de dentro para fora</span>
+                </a>
+
+                <a href="artigo.php?id=mente-10" class="learn-list-item">
+                    <span class="learn-list-category">Mente 10</span>
+                    <span class="learn-list-title">Stress, emocoes e seu impacto na saude da pele</span>
+                </a>
+
+                <a href="artigo.php?id=corpo-10" class="learn-list-item">
+                    <span class="learn-list-category">Corpo 10</span>
+                    <span class="learn-list-title">Movimento, circulacao e vitalidade corporea</span>
+                </a>
+
+                <a href="artigo.php?id=sono-10" class="learn-list-item">
+                    <span class="learn-list-category">Sono 10</span>
+                    <span class="learn-list-title">Sono restaurador: a base para a regeneracao celular</span>
+                </a>
+
+                <a href="artigo.php?id=vida-10" class="learn-list-item">
+                    <span class="learn-list-category">Vida 10</span>
+                    <span class="learn-list-title">Estilo de vida integral: o poder da consistencia</span>
+                </a>
+            </div>
         </div>
     </section>
 
