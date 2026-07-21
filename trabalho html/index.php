@@ -29,6 +29,42 @@ $artigos = [
         'autor' => 'Dr. Charles Genehr'
     ]
 ];
+
+// eBooks gerenciados pelo painel (JSON)
+$ebooks_file = __DIR__ . '/admin/ebooks.json';
+$ebooks = [];
+
+if (file_exists($ebooks_file)) {
+    $ebooks_json = file_get_contents($ebooks_file);
+    $ebooks_json = preg_replace('/^\xEF\xBB\xBF/', '', (string) $ebooks_json);
+    $ebooks_data = json_decode($ebooks_json, true);
+
+    if (is_array($ebooks_data)) {
+        $ebooks = $ebooks_data;
+    }
+}
+
+if (empty($ebooks)) {
+    $ebooks = [
+        [
+            'titulo' => 'Saúde da pele e bem-estar',
+            'descricao' => 'Um guia prático sobre cuidados com a pele, nutrição e hábitos que favorecem a saúde integral.',
+            'link' => 'https://www.amazon.com.br/dp/B0FG8HV69F'
+        ],
+        [
+            'titulo' => 'Nutrição para viver melhor',
+            'descricao' => 'Conteúdo sobre alimentação funcional, metabolismo e escolhas que promovem energia e equilíbrio.',
+            'link' => 'https://www.amazon.com.br/dp/B0FG87D936'
+        ],
+        [
+            'titulo' => 'Equilíbrio e medicina integrativa',
+            'descricao' => 'Uma visão completa sobre prevenção, autocuidado e o papel da medicina integrativa na saúde duradoura.',
+            'link' => 'https://www.amazon.com.br/dp/B073V816YN'
+        ]
+    ];
+}
+
+$ebooks_home = array_slice($ebooks, 0, 3);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -51,7 +87,7 @@ $artigos = [
         </a>
 
         <nav id="menu" class="nav-links">
-            <a href="#home">Inicio</a>
+            <a href="#home">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#especialidades">Especialidades</a>
             <a href="#artigos">Artigos</a>
@@ -68,12 +104,12 @@ $artigos = [
         <div class="container hero-grid">
             <div class="hero-content">
                 <p class="eyebrow">Medicina integrativa • Dermatologia • Nutrologia</p>
-                <h1>Equilibrio para sua pele, mente e corpo.</h1>
-                <p>Uma abordagem personalizada que une ciencia, cuidado humano e protocolos integrativos para transformar sua saude e sua qualidade de vida.</p>
+                <h1>Equilíbrio para sua pele, mente e corpo.</h1>
+                <p>Uma abordagem personalizada que une ciência, cuidado humano e protocolos integrativos para transformar sua saúde e sua qualidade de vida.</p>
 
                 <div class="hero-actions">
                     <a href="#contato" class="btn btn-primary">Agendar consulta</a>
-                    <a href="https://wa.me/5551996604296" class="btn btn-secondary" target="_blank" rel="noopener">Falar no WhatsApp</a>
+                    <a href="https://wa.me/55519966042" class="btn btn-secondary" target="_blank" rel="noopener">Falar agora</a>
                 </div>
 
                 <ul class="hero-highlights">
@@ -84,10 +120,10 @@ $artigos = [
             </div>
 
             <div class="hero-card">
-                <h3>Seu caminho para uma saude integral</h3>
-                <p>Escuta ativa, diagnostico cuidadoso e um plano pensado para voce, com foco em resultados reais e duradouros.</p>
+                <h3>Seu caminho para uma saúde integral</h3>
+                <p>Escuta ativa, diagnóstico cuidadoso e um plano pensado para você, com foco em resultados reais e duradouros.</p>
                 <div class="hero-card-list">
-                    <span>Dermatologia clinica</span>
+                    <span>Dermatologia clínica</span>
                     <span>Nutrologia funcional</span>
                     <span>Medicina integrativa</span>
                 </div>
@@ -99,11 +135,11 @@ $artigos = [
         <div class="container about-grid">
             <div class="about-text">
                 <p class="eyebrow">Sobre o Dr. Charles</p>
-                <h2>Uma abordagem integral para a saude da pele e do organismo</h2>
-                <p>Como dermatologista (CREMERS 26.509 | RQE 17317) com pos-graduacao em nutrologia (nao especialista), o Dr. Charles enxerga alem dos sintomas superficiais.</p>
-                <p>Sua metodologia integrativa investiga profundamente as raizes dos desequilibrios que se manifestam na pele e no organismo, criando um plano de tratamento verdadeiramente personalizado.</p>
-                <p>Atraves de uma combinacao criteriosa entre a medicina ocidental e os conhecimentos do Ayurveda, o Dr. Charles trabalha para identificar as verdadeiras causas dos sintomas, restaurar a harmonia entre mente e corpo, capacitar o paciente com conhecimentos para manter a saude a longo prazo e desenvolver solucoes personalizadas que respeitam a individualidade biologica.</p>
-                <a href="#contato" class="text-link">Conheca mais</a>
+                <h2>Uma abordagem integral para a saúde da pele e do organismo</h2>
+                <p>Como dermatologista (CREMERS 26.509 | RQE 17317) com pós-graduação em nutrologia (não especialista), o Dr. Charles enxerga além dos sintomas superficiais.</p>
+                <p>Sua metodologia integrativa investiga profundamente as raízes dos desequilíbrios que se manifestam na pele e no organismo, criando um plano de tratamento verdadeiramente personalizado.</p>
+                <p>Através de uma combinação criteriosa entre a medicina ocidental e os conhecimentos do Ayurveda, o Dr. Charles trabalha para identificar as verdadeiras causas dos sintomas, restaurar a harmonia entre mente e corpo, capacitar o paciente com conhecimentos para manter a saúde a longo prazo e desenvolver soluções personalizadas que respeitam a individualidade biológica.</p>
+                <a href="#contato" class="text-link">Conheça mais</a>
             </div>
 
             <div class="about-image">
@@ -122,16 +158,16 @@ $artigos = [
 
             <div class="dermatology-copy">
                 <p class="eyebrow">Dermatologia</p>
-                <h2>Dermatologia clinica e estetica com visao medica, humana e personalizada</h2>
-                <p>A dermatologia e uma area essencial para cuidar da saude da pele, do couro cabeludo e das unhas, com foco em diagnostico preciso, prevencao e tratamento de longo prazo.</p>
-                <p>Atendimentos para acne, rosacea, melasma, dermatite, psoriase, sensibilidade cutanea, queda de cabelo, envelhecimento e cuidados esteticos com seguranca.</p>
+                <h2>Dermatologia clínica e estética com visão médica, humana e personalizada</h2>
+                <p>A dermatologia é uma área essencial para cuidar da saúde da pele, do couro cabeludo e das unhas, com foco em diagnóstico preciso, prevenção e tratamento de longo prazo.</p>
+                <p>Atendimentos para acne, rosácea, melasma, dermatite, psoríase, sensibilidade cutânea, queda de cabelo, envelhecimento e cuidados estéticos com segurança.</p>
                 <div class="dermatology-features">
-                    <span>Acne e pos-acne</span>
-                    <span>Rosacea e sensibilidade</span>
-                    <span>Melasma e hiperpigmentacao</span>
+                    <span>Acne e pós-acne</span>
+                    <span>Rosácea e sensibilidade</span>
+                    <span>Melasma e hiperpigmentação</span>
                     <span>Cuidados preventivos</span>
                 </div>
-                <a href="#contato" class="text-link">Agendar avaliacao dermatologica</a>
+                <a href="#contato" class="text-link">Agendar avaliação dermatológica</a>
             </div>
         </div>
     </section>
@@ -139,58 +175,58 @@ $artigos = [
     <section class="conditions-section">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Condicoes dermatologicas</p>
-                <h2>Abordagem integrativa para pele, inflamacao e equilibrio</h2>
-                <p>Tratamentos personalizados para condicoes dermatologicas com foco em causa, inflamacao, nutricao e bem-estar integral.</p>
+                <p class="eyebrow">Condições dermatológicas</p>
+                <h2>Abordagem integrativa para pele, inflamação e equilíbrio</h2>
+                <p>Tratamentos personalizados para condições dermatológicas com foco em causa, inflamação, nutrição e bem-estar integral.</p>
             </div>
 
             <div class="conditions-grid">
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-20.png" alt="Acne" class="condition-image">
                     <h3>Acne</h3>
-                    <p>Frequentemente relacionada a desequilibrios hormonais, inflamacao e fatores dieteticos. A abordagem nutrologica e integrativa do Dr. Charles e fundamental para identificar e tratar as causas subjacentes, nao apenas os sintomas.</p>
+                    <p>Frequentemente relacionada a desequilíbrios hormonais, inflamação e fatores dietéticos. A abordagem nutrológica e integrativa do Dr. Charles é fundamental para identificar e tratar as causas subjacentes, não apenas os sintomas.</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-21.png" alt="Rosacea" class="condition-image">
-                    <h3>Rosacea</h3>
-                    <p>Uma condicao inflamatoria cronica da pele que pode ser agravada por fatores dieteticos, estresse e desequilibrios internos. O tratamento com Ayurveda e Nutrologia Funcional pode oferecer um alivio significativo e duradouro.</p>
+                    <h3>Rosácea</h3>
+                    <p>Uma condição inflamatória crônica da pele que pode ser agravada por fatores dietéticos, estresse e desequilíbrios internos. O tratamento com Ayurveda e Nutrologia Funcional pode oferecer um alívio significativo e duradouro.</p>
                 </article>
 
                 <article class="condition-card">
-                    <img src="assets/logo-dr-charles-22.png" alt="Dermatite atopica" class="condition-image">
-                    <h3>Dermatite Atopica (Eczema)</h3>
-                    <p>Muitas vezes associada a alergias, sensibilidades alimentares e disfuncoes da barreira cutanea, que podem ser influenciadas pela saude intestinal e nutricional.</p>
+                    <img src="assets/logo-dr-charles-22.png" alt="Dermatite atópica" class="condition-image">
+                    <h3>Dermatite Atópica (Eczema)</h3>
+                    <p>Muitas vezes associada a alergias, sensibilidades alimentares e disfunções da barreira cutânea, que podem ser influenciadas pela saúde intestinal e nutricional.</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-23.png" alt="Psoriase" class="condition-image">
-                    <h3>Psoriase</h3>
-                    <p>Uma doenca autoimune cronica que tem forte ligacao com o sistema imunologico, inflamacao e, em muitos casos, com a saude intestinal. A medicina integrativa e o Ayurveda podem ser valiosos para gerenciar a condicao de forma holistica.</p>
+                    <h3>Psoríase</h3>
+                    <p>Uma doença autoimune crônica que tem forte ligação com o sistema imunológico, inflamação e, em muitos casos, com a saúde intestinal. A medicina integrativa e o Ayurveda podem ser valiosos para gerenciar a condição de forma holística.</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-28.png" alt="Vitiligo" class="condition-image">
                     <h3>Vitiligo</h3>
-                    <p>A nutricao desempenha papel fundamental nesta abordagem. Deficiencias especificas de micronutrientes sao frequentemente identificadas em pacientes com vitiligo e sua correcao pode estabilizar a progressao da doenca. Implementamos dietas anti-inflamatorias personalizadas que reduzem a ativacao imunologica excessiva e o estresse oxidativo.</p>
+                    <p>A nutrição desempenha papel fundamental nesta abordagem. Deficiências específicas de micronutrientes são frequentemente identificadas em pacientes com vitiligo e sua correção pode estabilizar a progressão da doença. Implementamos dietas anti-inflamatórias personalizadas que reduzem a ativação imunológica excessiva e o estresse oxidativo.</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-24.png" alt="Melasma" class="condition-image">
                     <h3>Melasma</h3>
-                    <p>Manchas escuras na pele que podem ser influenciadas por hormonios, exposicao solar e, segundo a perspectiva ayurvedica, por desequilibrios internos (especialmente do dosha Pitta).</p>
+                    <p>Manchas escuras na pele que podem ser influenciadas por hormônios, exposição solar e, segundo a perspectiva ayurvédica, por desequilíbrios internos (especialmente do dosha Pitta).</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-25.png" alt="Alopecia" class="condition-image">
                     <h3>Alopecia</h3>
-                    <p>Pode ter diversas causas, incluindo deficiencias nutricionais, estresse, desequilibrios hormonais e doencas autoimunes, todos os quais podem ser abordados pela visao integrativa do Dr. Charles.</p>
+                    <p>Pode ter diversas causas, incluindo deficiências nutricionais, estresse, desequilíbrios hormonais e doenças autoimunes, todos os quais podem ser abordados pela visão integrativa do Dr. Charles.</p>
                 </article>
 
                 <article class="condition-card">
                     <img src="assets/logo-dr-charles-26.png" alt="Outras condicoes inflamatorias" class="condition-image">
-                    <h3>Outras condicoes inflamatorias da pele</h3>
-                    <p>Como dermatites de contato, urticaria, etc., que podem ter gatilhos internos ou serem exacerbadas por desequilibrios sistemicos.</p>
+                    <h3>Outras condições inflamatórias da pele</h3>
+                    <p>Como dermatites de contato, urticária, etc., que podem ter gatilhos internos ou serem exacerbadas por desequilíbrios sistêmicos.</p>
                 </article>
             </div>
         </div>
@@ -201,23 +237,23 @@ $artigos = [
             <div class="section-header">
                 <p class="eyebrow">Especialidades</p>
                 <h2>Como posso te ajudar</h2>
-                <p>Atendimentos voltados para saude da pele, metabolismo, longevidade e bem-estar, com foco em diagnostico preciso e tratamento personalizado.</p>
+                <p>Atendimentos voltados para saúde da pele, metabolismo, longevidade e bem-estar, com foco em diagnóstico preciso e tratamento personalizado.</p>
             </div>
 
             <div class="cards">
                 <article class="card">
-                    <h3>Dermatologia clinica e estetica</h3>
-                    <p>Tratamentos personalizados para acne, rosacea, melasma, dermatite atopica, psoriase, alopecia, sensibilidade cutanea, hiperpigmentacao e envelhecimento cutaneo, sempre com olhar clinico, estetico e terapeutico.</p>
+                    <h3>Dermatologia clínica e estética</h3>
+                    <p>Tratamentos personalizados para acne, rosácea, melasma, dermatite atópica, psoríase, alopecia, sensibilidade cutânea, hiperpigmentação e envelhecimento cutâneo, sempre com olhar clínico, estético e terapêutico.</p>
                 </article>
 
                 <article class="card">
                     <h3>Nutrologia e longevidade</h3>
-                    <p>Acompanhamento nutricional com foco em metabolismo, energia, emagrecimento, prevencao e qualidade de vida.</p>
+                    <p>Acompanhamento nutricional com foco em metabolismo, energia, emagrecimento, prevenção e qualidade de vida.</p>
                 </article>
 
                 <article class="card">
                     <h3>Medicina integrativa</h3>
-                    <p>Abordagem completa, considerando corpo, mente, emocoes, estilo de vida e autocuidado para promover equilibrio duradouro.</p>
+                    <p>Abordagem completa, considerando corpo, mente, emoções, estilo de vida e autocuidado para promover equilíbrio duradouro.</p>
                 </article>
             </div>
         </div>
@@ -231,11 +267,11 @@ $artigos = [
             </div>
             <div class="benefit-item">
                 <h3>15+</h3>
-                <p>Anos de experiencia</p>
+                <p>Anos de experiência</p>
             </div>
             <div class="benefit-item">
                 <h3>98%</h3>
-                <p>Indice de satisfacao</p>
+                <p>Índice de satisfação</p>
             </div>
         </div>
     </section>
@@ -244,35 +280,37 @@ $artigos = [
         <div class="container">
             <div class="section-header">
                 <p class="eyebrow">Aprenda Conosco</p>
-                <h2>Conhecimento para sua saude integral</h2>
-                <p>Explore topicos essenciais sobre nutricao, bem-estar, medicina integrativa e estilo de vida saudavel.</p>
+                <h2>Conhecimento para sua saúde integral</h2>
+                <p>Explore tópicos essenciais sobre nutrição, bem-estar, medicina integrativa e estilo de vida saudável.</p>
             </div>
 
             <div class="learn-list">
-                <a href="artigo.php?id=comida-10" class="learn-list-item">
+                <a href="comida-10.php" class="learn-list-item">
                     <span class="learn-list-category">Comida 10</span>
-                    <span class="learn-list-title">Nutrição que transforma sua pele de dentro para fora</span>
+                    <span class="learn-list-title">Ver artigos de alimentação (Comida 10)</span>
                 </a>
 
-                <a href="artigo.php?id=mente-10" class="learn-list-item">
+                <a href="mente-10.php" class="learn-list-item">
                     <span class="learn-list-category">Mente 10</span>
-                    <span class="learn-list-title">Stress, emocoes e seu impacto na saude da pele</span>
+                    <span class="learn-list-title">Stress, emoções e seu impacto na saúde da pele</span>
                 </a>
 
-                <a href="artigo.php?id=corpo-10" class="learn-list-item">
+                <a href="corpo-10.php" class="learn-list-item">
                     <span class="learn-list-category">Corpo 10</span>
-                    <span class="learn-list-title">Movimento, circulacao e vitalidade corporea</span>
+                    <span class="learn-list-title">Movimento, circulação e vitalidade corpórea</span>
                 </a>
 
-                <a href="artigo.php?id=sono-10" class="learn-list-item">
+                <a href="sono-10.php" class="learn-list-item">
                     <span class="learn-list-category">Sono 10</span>
-                    <span class="learn-list-title">Sono restaurador: a base para a regeneracao celular</span>
+                    <span class="learn-list-title">Sono restaurador: a base para a regeneração celular</span>
                 </a>
 
-                <a href="artigo.php?id=vida-10" class="learn-list-item">
+                <a href="vida-10.php" class="learn-list-item">
                     <span class="learn-list-category">Vida 10</span>
-                    <span class="learn-list-title">Estilo de vida integral: o poder da consistencia</span>
+                    <span class="learn-list-title">Estilo de vida integral: o poder da consistência</span>
                 </a>
+
+
             </div>
         </div>
     </section>
@@ -291,7 +329,7 @@ $artigos = [
                 </article>
 
                 <article class="card testimonial-card">
-                    <p>"Mudou minha qualidade de vida. As orientacoes foram claras, objetivas e muito bem personalizadas."</p>
+                    <p>"Mudou minha qualidade de vida. As orientações foram claras, objetivas e muito bem personalizadas."</p>
                     <strong> Marcos T.</strong>
                 </article>
 
@@ -307,28 +345,22 @@ $artigos = [
         <div class="container">
             <div class="section-header">
                 <p class="eyebrow">Ebooks</p>
-                <h2>Conteudos gratuitos para voce</h2>
-                <p>Explore materiais que ajudam a entender melhor a saude da pele, nutricao e bem-estar integral.</p>
+                <h2>Conteúdos gratuitos para você</h2>
+                <p>Explore materiais que ajudam a entender melhor a saúde da pele, nutrição e bem-estar integral.</p>
             </div>
 
             <div class="cards">
-                <article class="card ebook-card">
-                    <h3>Saude da pele e bem-estar</h3>
-                    <p>Um guia pratico sobre cuidados com a pele, nutricao e habitos que favorecem a saude integral.</p>
-                    <a href="https://www.amazon.com.br/dp/B0FG8HV69F" target="_blank" rel="noopener" class="text-link">Acessar ebook</a>
-                </article>
+                <?php foreach ($ebooks_home as $ebook): ?>
+                    <article class="card ebook-card">
+                        <h3><?= htmlspecialchars((string) ($ebook['titulo'] ?? 'eBook'), ENT_QUOTES, 'UTF-8') ?></h3>
+                        <p><?= htmlspecialchars((string) ($ebook['descricao'] ?? 'Conteúdo em breve.'), ENT_QUOTES, 'UTF-8') ?></p>
+                        <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#'), ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="text-link">Acessar eBook</a>
+                    </article>
+                <?php endforeach; ?>
+            </div>
 
-                <article class="card ebook-card">
-                    <h3>Nutricao para viver melhor</h3>
-                    <p>Conteudo sobre alimentacao funcional, metabolismo e escolhas que promovem energia e equilibrio.</p>
-                    <a href="https://www.amazon.com.br/dp/B0FG87D936" target="_blank" rel="noopener" class="text-link">Acessar ebook</a>
-                </article>
-
-                <article class="card ebook-card">
-                    <h3>Equilibrio e medicina integrativa</h3>
-                    <p>Uma visao completa sobre prevencao, autocuidado e o papel da medicina integrativa na saude duradoura.</p>
-                    <a href="https://www.amazon.com.br/dp/B073V816YN" target="_blank" rel="noopener" class="text-link">Acessar ebook</a>
-                </article>
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="ebooks.php" class="btn btn-primary">Mais eBooks</a>
             </div>
         </div>
     </section>
@@ -338,21 +370,18 @@ $artigos = [
             <div class="contact-info">
                 <p class="eyebrow">Contato</p>
                 <h2>Agende sua consulta</h2>
-                <p>Atendimento presencial e online com acolhimento, escuta e um plano pensado para voce. A saude integral comeca com um primeiro passo.</p>
+                <p>Atendimento presencial e online com acolhimento, escuta e um plano pensado para você. A saúde integral começa com um primeiro passo.</p>
 
                 <div class="contact-item">
-                    <strong>WhatsApp</strong>
-                    <a href="https://wa.me/5551996604296" target="_blank" rel="noopener">+55 51 99660-4296</a>
+                    <strong>Endereços</strong>
+                    <span>R. Tupi, 1242 - Centro, Novo Hamburgo - RS. (51) 3581-2645.</span>
+                    <span>Tv. Sete de Setembro, 74 A - Sala 03 - Centro, Sapiranga - RS. (51) 99954-8778.</span>
+                    <span>R. Rui Barbosa, 64 - Centro, Campo Bom - RS. (51) 99255-1772.</span>
                 </div>
 
                 <div class="contact-item">
-                    <strong>Endereco</strong>
-                    <span>Rua Araponga, 306 - Chacara das Pedras, Porto Alegre/RS</span>
-                </div>
-
-                <div class="contact-item">
-                    <strong>Horario</strong>
-                    <span>Segunda a quarta, das 09h as 18h</span>
+                    <strong>Horário</strong>
+                    <span>Segunda a quarta, das 09h às 18h</span>
                 </div>
 
                 <div class="contact-item">
@@ -373,13 +402,18 @@ $artigos = [
     </section>
 </main>
 
-<a class="whatsapp" href="https://wa.me/5551996604296" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">💬</a>
+<a class="whatsapp" href="https://wa.me/55519966042" target="_blank" rel="noopener" aria-label="Abrir contato" title="Falar agora">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M19.11 17.27c-.27-.14-1.57-.77-1.81-.86-.24-.09-.41-.14-.59.14-.18.27-.68.86-.84 1.03-.16.18-.31.2-.57.07-.27-.14-1.12-.41-2.14-1.31-.79-.7-1.32-1.57-1.47-1.84-.16-.27-.02-.41.12-.54.12-.12.27-.31.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.59-1.42-.81-1.95-.21-.5-.43-.43-.59-.44h-.5c-.18 0-.47.07-.72.34-.24.27-.95.93-.95 2.27s.97 2.63 1.11 2.81c.14.18 1.91 2.91 4.63 4.08.65.28 1.16.45 1.55.58.65.2 1.23.17 1.69.1.52-.08 1.57-.64 1.79-1.25.22-.61.22-1.13.15-1.25-.06-.11-.24-.18-.5-.31zM16.03 4.8c-6.18 0-11.2 5.01-11.2 11.2 0 1.98.52 3.84 1.43 5.45L4.8 27.2l5.89-1.55a11.14 11.14 0 0 0 5.34 1.36h.01c6.18 0 11.2-5.02 11.2-11.2 0-3-1.17-5.81-3.29-7.93a11.14 11.14 0 0 0-7.92-3.08zm0 20.3h-.01a9.12 9.12 0 0 1-4.66-1.27l-.33-.2-3.49.92.93-3.4-.22-.35a9.07 9.07 0 0 1-1.39-4.79c0-5.04 4.1-9.14 9.15-9.14 2.44 0 4.73.95 6.45 2.67a9.07 9.07 0 0 1 2.68 6.47c0 5.04-4.1 9.14-9.14 9.14z"/>
+    </svg>
+</a>
 
 <footer>
     <div class="container footer-content">
         <p>© 2026 Dr. Charles Genehr - Todos os direitos reservados.</p>
+        <p class="footer-addresses">R. Tupi, 1242 - Centro, Novo Hamburgo - RS • Tv. Sete de Setembro, 74 A - Sala 03 - Centro, Sapiranga - RS • R. Rui Barbosa, 64 - Centro, Campo Bom - RS</p>
         <div class="footer-links">
-            <a href="#home">Inicio</a>
+            <a href="#home">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#artigos">Artigos</a>
             <a href="#contato">Contato</a>

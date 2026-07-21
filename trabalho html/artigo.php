@@ -8,6 +8,7 @@ $artigos_completos = [];
 
 if (file_exists($artigos_json_file)) {
     $json_content = file_get_contents($artigos_json_file);
+    $json_content = preg_replace('/^\xEF\xBB\xBF/', '', (string) $json_content);
     $artigos_array = json_decode($json_content, true);
     
     // Converter array para formato chave=>valor por ID
@@ -202,6 +203,62 @@ if (empty($artigos_completos)) {
     ];
 }
 
+function normalize_portuguese_text(string $text): string
+{
+    // Corrige caracteres comuns de mojibake (UTF-8 lido como latin1)
+    $mojibakeMap = [
+        'Ã¡' => 'á', 'Ãà' => 'à', 'Ã¢' => 'â', 'Ãã' => 'ã', 'Ãä' => 'ä',
+        'Ã©' => 'é', 'Ãê' => 'ê', 'Ã­' => 'í', 'Ã³' => 'ó', 'Ã´' => 'ô',
+        'Ãµ' => 'õ', 'Ãº' => 'ú', 'Ãç' => 'ç', 'Ã‰' => 'É', 'Ã‡' => 'Ç',
+        'ðŸƒ ' => '',
+    ];
+
+    $text = strtr($text, $mojibakeMap);
+
+    // Acentuação de termos frequentes no conteúdo legado
+    $accentMap = [
+        'emocoes' => 'emoções',
+        'saude' => 'saúde',
+        'nutricao' => 'nutrição',
+        'circulacao' => 'circulação',
+        'regeneracao' => 'regeneração',
+        'consistencia' => 'consistência',
+        'inflamacao' => 'inflamação',
+        'inflamacoes' => 'inflamações',
+        'protecao' => 'proteção',
+        'producao' => 'produção',
+        'cicatrizacao' => 'cicatrização',
+        'conexao' => 'conexão',
+        'cronica' => 'crônica',
+        'hormonio' => 'hormônio',
+        'respiracao' => 'respiração',
+        'meditacao' => 'meditação',
+        'equilibrio' => 'equilíbrio',
+        'desequilibrios' => 'desequilíbrios',
+        'Aparencia' => 'Aparência',
+        'Natacao' => 'Natação',
+        'Danca' => 'Dança',
+        'Cafe da manha' => 'Café da manhã',
+        'Refeicao' => 'Refeição',
+        'nao' => 'não',
+        'sao' => 'são',
+        'tambem' => 'também',
+    ];
+
+    return strtr($text, $accentMap);
+}
+
+function normalize_article_fields(array $article): array
+{
+    foreach (['titulo', 'categoria', 'conteudo', 'autor'] as $field) {
+        if (isset($article[$field]) && is_string($article[$field])) {
+            $article[$field] = normalize_portuguese_text($article[$field]);
+        }
+    }
+
+    return $article;
+}
+
 // Obter ID do artigo da URL
 $id = isset($_GET['id']) ? (string) $_GET['id'] : '';
 
@@ -212,6 +269,7 @@ if (!isset($artigos_completos[$id])) {
 }
 
 $artigo = $artigos_completos[$id];
+$artigo = normalize_article_fields($artigo);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -238,11 +296,19 @@ $artigo = $artigos_completos[$id];
         }
 
         .article-meta{
-            display:flex;
-            gap:20px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+            gap:14px;
+            margin-top:18px;
+        }
+
+        .article-meta span{
+            background:rgba(255,255,255,0.16);
+            border:1px solid rgba(255,255,255,0.22);
+            border-radius:12px;
+            padding:10px 12px;
             font-size:0.95rem;
-            opacity:0.95;
-            flex-wrap:wrap;
+            color:rgba(255,255,255,0.95);
         }
 
         .article-container{
@@ -255,6 +321,30 @@ $artigo = $artigos_completos[$id];
             font-size:1.05rem;
             line-height:1.8;
             color:var(--text);
+        }
+
+        .article-image-box,
+        .article-content-box,
+        .article-nav-box{
+            background:#fff;
+            border:1px solid rgba(31,107,117,0.12);
+            border-radius:16px;
+            box-shadow:0 8px 25px rgba(31,107,117,0.08);
+        }
+
+        .article-image-box{
+            padding:14px;
+            margin-bottom:26px;
+        }
+
+        .article-content-box{
+            padding:30px;
+        }
+
+        .article-nav-box{
+            margin-top:24px;
+            padding:22px;
+            text-align:center;
         }
 
         .article-body h2{
@@ -320,10 +410,17 @@ $artigo = $artigos_completos[$id];
 
         .article-cta h3{
             margin-top:0;
+            color:var(--green-dark);
         }
 
         .article-cta p{
             margin:15px 0;
+            color:var(--text);
+        }
+        
+        .article-body strong{
+            color:var(--green-dark);
+            font-weight:600;
         }
 
         .btn{
@@ -380,10 +477,10 @@ $artigo = $artigos_completos[$id];
             </a>
 
             <nav id="menu" class="nav-links">
-                <a href="/#home">Inicio</a>
+                <a href="/#home">Início</a>
                 <a href="/#sobre">Sobre</a>
                 <a href="/#especialidades">Especialidades</a>
-                <a href="/#artigos">Blog</a>
+                <a href="/#artigos">Artigos</a>
                 <a href="/#depoimentos">Depoimentos</a>
                 <a href="/#contato">Contato</a>
             </nav>
@@ -398,23 +495,31 @@ $artigo = $artigos_completos[$id];
                 <a href="/#artigos" class="article-back">← Voltar aos artigos</a>
                 <h1><?= htmlspecialchars($artigo['titulo'], ENT_QUOTES, 'UTF-8') ?></h1>
                 <div class="article-meta">
-                    <span class="category"><?= htmlspecialchars($artigo['categoria'], ENT_QUOTES, 'UTF-8') ?></span>
-                    <span class="date"><?= date('d \d\e F \d\e Y', strtotime($artigo['data_publicacao'])) ?></span>
-                    <span class="author">Por <?= htmlspecialchars($artigo['autor'], ENT_QUOTES, 'UTF-8') ?></span>
+                    <span class="category"><strong>Categoria:</strong> <?= htmlspecialchars($artigo['categoria'], ENT_QUOTES, 'UTF-8') ?></span>
+                    <span class="date"><strong>Data:</strong> <?= date('d/m/Y', strtotime($artigo['data_publicacao'])) ?></span>
+                    <span class="author"><strong>Autor:</strong> <?= htmlspecialchars($artigo['autor'], ENT_QUOTES, 'UTF-8') ?></span>
                 </div>
             </div>
         </section>
 
         <article class="article-body">
             <div class="container article-container">
-                <img src="<?= htmlspecialchars($artigo['imagem_capa'], ENT_QUOTES, 'UTF-8') ?>" alt="Imagem do artigo" style="width:100%; height:auto; border-radius:12px; margin-bottom:40px; object-fit:cover;">
+                <div class="article-image-box">
+                    <img src="<?= htmlspecialchars($artigo['imagem_capa'], ENT_QUOTES, 'UTF-8') ?>" alt="Imagem do artigo" style="width:100%; height:auto; border-radius:12px; object-fit:cover;">
+                </div>
 
-                <?= $artigo['conteudo'] ?>
+                <div class="article-content-box">
+                    <?= $artigo['conteudo'] ?>
 
-                <div class="article-cta">
-                    <h3>Pronto para transformar sua saude?</h3>
-                    <p>Agende uma consulta com o Dr. Charles para um plano personalizado alinhado com seus objetivos de bem-estar.</p>
-                    <a href="/#contato" class="btn">Agendar Consulta</a>
+                    <div class="article-cta">
+                        <h3>Pronto para transformar sua saúde?</h3>
+                        <p>Agende uma consulta com o Dr. Charles para um plano personalizado alinhado com seus objetivos de bem-estar.</p>
+                        <a href="/#contato" class="btn">Agendar Consulta</a>
+                    </div>
+                </div>
+
+                <div class="article-nav-box">
+                    <a href="/" class="btn" style="background:#1f6b75; color:#fff; padding:14px 32px; border-radius:30px; text-decoration:none; font-weight:600; font-size:1rem;">← Voltar ao Site</a>
                 </div>
             </div>
         </article>

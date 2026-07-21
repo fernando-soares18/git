@@ -1,0 +1,20 @@
+[
+    {
+        "id": "ebook-1",
+        "titulo": "Saúde da pele e bem-estar",
+        "descricao": "Um guia prático sobre cuidados com a pele, nutrição e hábitos que favorecem a saúde integral.",
+        "link": "https://www.amazon.com.br/dp/B0FG8HV69F"
+    },
+    {
+        "id": "ebook-2",
+        "titulo": "Nutrição para viver melhor",
+        "descricao": "Conteúdo sobre alimentação funcional, metabolismo e escolhas que promovem energia e equilíbrio.",
+        "link": "https://www.amazon.com.br/dp/B0FG87D936"
+    },
+    {
+        "id": "ebook-3",
+        "titulo": "Equilíbrio e medicina integrativa",
+        "descricao": "Uma visão completa sobre prevenção, autocuidado e o papel da medicina integrativa na saúde duradoura.",
+        "link": "https://www.amazon.com.br/dp/B073V816YN"
+    }
+]

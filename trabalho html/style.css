@@ -533,6 +533,10 @@ img{
     display:block;
 }
 
+.contact-item span{
+    margin-top:4px;
+}
+
 .contact-item a{
     color:var(--green-dark);
     text-decoration:none;
@@ -598,6 +602,15 @@ button:hover{
     z-index:1000;
 }
 
+.whatsapp svg{
+    width:34px;
+    height:34px;
+}
+
+.whatsapp:hover{
+    transform:translateY(-2px);
+}
+
 footer{
     background:#102928;
     color:#dceceb;
@@ -610,6 +623,13 @@ footer{
     gap:12px;
     align-items:center;
     flex-wrap:wrap;
+}
+
+.footer-addresses{
+    width:100%;
+    color:#c3dcda;
+    font-size:0.9rem;
+    line-height:1.5;
 }
 
 .footer-links{
