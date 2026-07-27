@@ -3,18 +3,37 @@
         "id": "ebook-1",
         "titulo": "Saúde da pele e bem-estar",
         "descricao": "Um guia prático sobre cuidados com a pele, nutrição e hábitos que favorecem a saúde integral.",
-        "link": "https://www.amazon.com.br/dp/B0FG8HV69F"
+        "link": "https://www.amazon.com.br/dp/B0FG8HV69F",
+        "capa": "https://m.media-amazon.com/images/I/51Evq82Z63L._SY475_.jpg"
     },
     {
         "id": "ebook-2",
         "titulo": "Nutrição para viver melhor",
         "descricao": "Conteúdo sobre alimentação funcional, metabolismo e escolhas que promovem energia e equilíbrio.",
-        "link": "https://www.amazon.com.br/dp/B0FG87D936"
+        "link": "https://www.amazon.com.br/dp/B0FG87D936",
+        "capa": "https://m.media-amazon.com/images/I/51pUotScLGL._SY475_.jpg"
     },
     {
         "id": "ebook-3",
         "titulo": "Equilíbrio e medicina integrativa",
         "descricao": "Uma visão completa sobre prevenção, autocuidado e o papel da medicina integrativa na saúde duradoura.",
-        "link": "https://www.amazon.com.br/dp/B073V816YN"
+        "link": "https://www.amazon.com.br/dp/B073V816YN",
+        "capa": "https://m.media-amazon.com/images/I/710luP6gdYL._SY475_.jpg"
+    },
+    {
+        "id": "ebook-4",
+        "titulo": "Acne Vulgar — Guia Clínico Exaustivo e Protocolos Terapêuticos",
+        "descricao": "Guia clínico completo sobre diagnóstico, causas e protocolos terapêuticos para o tratamento da acne vulgar.",
+        "link": "/uploads/acne-vulgar.pdf",
+        "capa": "/uploads/capas/acne-vulgar-capa.jpg",
+        "download": true
+    },
+    {
+        "id": "ebook-5",
+        "titulo": "Melasma — Guia Clínico e Terapêutico",
+        "descricao": "Material clínico especializado sobre melasma: fisiopatologia, diagnóstico diferencial e abordagens terapêuticas.",
+        "link": "/uploads/melasma.pdf",
+        "capa": "/uploads/capas/melasma-capa.jpg",
+        "download": true
     }
 ]

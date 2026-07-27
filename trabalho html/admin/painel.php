@@ -99,7 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['ac
 
 // Caminho do arquivo JSON de artigos
 $artigos_file = __DIR__ . '/artigos.json';
-$ebooks_file = __DIR__ . '/ebooks.json';
+$ebooks_file  = __DIR__ . '/ebooks.json';
+$cursos_file  = __DIR__ . '/cursos.json';
 
 // Função para carregar artigos
 function carregar_artigos(string $file): array {
@@ -134,9 +135,23 @@ function salvar_ebooks(string $file, array $ebooks): bool {
     return file_put_contents($file, $json) !== false;
 }
 
+function carregar_cursos(string $file): array {
+    if (!file_exists($file)) return [];
+    $json = file_get_contents($file);
+    $json = preg_replace('/^\xEF\xBB\xBF/', '', (string) $json);
+    $data = json_decode((string) $json, true);
+    return is_array($data) ? $data : [];
+}
+
+function salvar_cursos(string $file, array $cursos): bool {
+    $json = json_encode(array_values($cursos), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    return file_put_contents($file, $json) !== false;
+}
+
 // Carregar artigos
 $artigos = carregar_artigos($artigos_file);
-$ebooks = carregar_ebooks($ebooks_file);
+$ebooks  = carregar_ebooks($ebooks_file);
+$cursos  = carregar_cursos($cursos_file);
 
 // Processar formulário de edição
 $mensagem = '';
@@ -192,6 +207,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mensagem = "⚠️ Todos os campos são obrigatórios!";
                 $tipo_mensagem = 'aviso';
             }
+        } elseif ($_POST['acao'] === 'adicionar_curso') {
+            $titulo_curso   = trim($_POST['titulo_curso'] ?? '');
+            $conteudo_curso = $_POST['conteudo_curso'] ?? '';
+            $autor_curso    = trim($_POST['autor_curso'] ?? 'Dr. Charles Genehr');
+            $data_curso     = trim($_POST['data_curso'] ?? date('Y-m-d'));
+            $imagem_curso   = trim($_POST['imagem_curso'] ?? '');
+
+            if ($titulo_curso === '' || $conteudo_curso === '') {
+                $mensagem = '⚠️ Título e conteúdo são obrigatórios.';
+                $tipo_mensagem = 'aviso';
+            } else {
+                $novo_curso = [
+                    'id'              => uniqid('curso-', true),
+                    'titulo'          => $titulo_curso,
+                    'conteudo'        => $conteudo_curso,
+                    'autor'           => $autor_curso !== '' ? $autor_curso : 'Dr. Charles Genehr',
+                    'data_publicacao' => $data_curso !== '' ? $data_curso : date('Y-m-d'),
+                ];
+                if ($imagem_curso !== '' && filter_var($imagem_curso, FILTER_VALIDATE_URL)) {
+                    $novo_curso['imagem_capa'] = $imagem_curso;
+                }
+                $cursos[] = $novo_curso;
+                if (salvar_cursos($cursos_file, $cursos)) {
+                    $mensagem = "✅ Conteúdo '{$titulo_curso}' adicionado ao Curso Saúde 10!";
+                    $tipo_mensagem = 'sucesso';
+                    $cursos = carregar_cursos($cursos_file);
+                } else {
+                    $mensagem = '❌ Erro ao salvar. Verifique permissões de arquivo.';
+                    $tipo_mensagem = 'erro';
+                }
+            }
+        } elseif ($_POST['acao'] === 'excluir_curso' && isset($_POST['id_curso'])) {
+            $id_curso = (string) $_POST['id_curso'];
+            $titulo_removido = '';
+            $cursos = array_values(array_filter($cursos, function (array $c) use ($id_curso, &$titulo_removido): bool {
+                if ((string) ($c['id'] ?? '') === $id_curso) {
+                    $titulo_removido = (string) ($c['titulo'] ?? '');
+                    return false;
+                }
+                return true;
+            }));
+            if (salvar_cursos($cursos_file, $cursos)) {
+                $mensagem = $titulo_removido !== '' ? "✅ '{$titulo_removido}' excluído com sucesso!" : '✅ Conteúdo excluído.';
+                $tipo_mensagem = 'sucesso';
+                $cursos = carregar_cursos($cursos_file);
+            } else {
+                $mensagem = '❌ Erro ao excluir. Verifique permissões de arquivo.';
+                $tipo_mensagem = 'erro';
+            }
+
         } elseif ($_POST['acao'] === 'adicionar_ebook') {
             $titulo_ebook = trim($_POST['titulo_ebook'] ?? '');
             $descricao_ebook = trim($_POST['descricao_ebook'] ?? '');
@@ -204,12 +269,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mensagem = '⚠️ Informe uma URL válida para o eBook.';
                 $tipo_mensagem = 'aviso';
             } else {
-                $ebooks[] = [
+                $capa_ebook = trim($_POST['capa_ebook'] ?? '');
+                $novo_ebook = [
                     'id' => uniqid('ebook-', true),
                     'titulo' => $titulo_ebook,
                     'descricao' => $descricao_ebook,
                     'link' => $link_ebook,
                 ];
+                if ($capa_ebook !== '' && filter_var($capa_ebook, FILTER_VALIDATE_URL)) {
+                    $novo_ebook['capa'] = $capa_ebook;
+                }
+                $ebooks[] = $novo_ebook;
 
                 if (salvar_ebooks($ebooks_file, $ebooks)) {
                     $mensagem = "✅ eBook '{$titulo_ebook}' adicionado com sucesso!";
@@ -754,12 +824,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="url" id="link_ebook" name="link_ebook" required placeholder="https://...">
                     </div>
 
+                    <div class="form-grupo">
+                        <label for="capa_ebook">🖼️ URL da Capa (opcional)</label>
+                        <input type="url" id="capa_ebook" name="capa_ebook" placeholder="https://...">
+                    </div>
+
                     <button type="submit" class="btn-salvar">➕ Adicionar eBook</button>
                 </form>
 
                 <div class="grid-ebooks">
                     <?php foreach ($ebooks as $ebook): ?>
                         <div class="card-ebook">
+                            <?php if (!empty($ebook['capa'])): ?>
+                                <img src="<?= htmlspecialchars((string) $ebook['capa'], ENT_QUOTES, 'UTF-8') ?>" alt="Capa" style="width:100%;border-radius:8px;margin-bottom:10px;object-fit:cover;max-height:180px;">
+                            <?php endif; ?>
                             <h3><?= htmlspecialchars((string) ($ebook['titulo'] ?? 'eBook')) ?></h3>
                             <p><?= htmlspecialchars((string) ($ebook['descricao'] ?? '')) ?></p>
                             <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#')) ?>" target="_blank" rel="noopener">Abrir link</a>
@@ -777,6 +855,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p style="margin-top: 16px; color: var(--muted);">Nenhum eBook cadastrado no momento.</p>
                 <?php endif; ?>
             </div>
+
+            <!-- SEÇÃO CURSO SAÚDE 10 -->
+            <div class="formulario" style="margin-top: 36px;">
+                <h2>🎓 Gerenciar Curso Saúde 10</h2>
+                <p style="color: var(--muted); margin-bottom: 16px;">Adicione e exclua conteúdos do Curso Saúde 10. As mudanças aparecem automaticamente no site.</p>
+
+                <form method="POST">
+                    <input type="hidden" name="acao" value="adicionar_curso">
+
+                    <div class="form-grupo">
+                        <label for="titulo_curso">📌 Título</label>
+                        <input type="text" id="titulo_curso" name="titulo_curso" required>
+                    </div>
+
+                    <div class="form-grupo-row">
+                        <div class="form-grupo">
+                            <label for="autor_curso">✍️ Autor</label>
+                            <input type="text" id="autor_curso" name="autor_curso" value="Dr. Charles Genehr">
+                        </div>
+                        <div class="form-grupo">
+                            <label for="data_curso">📅 Data de Publicação</label>
+                            <input type="date" id="data_curso" name="data_curso" value="<?= date('Y-m-d') ?>">
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="imagem_curso">🖼️ URL da Imagem de Capa (opcional)</label>
+                        <input type="url" id="imagem_curso" name="imagem_curso" placeholder="https://...">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="conteudo_curso">📝 Conteúdo (pode usar HTML: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, etc.)</label>
+                        <textarea id="conteudo_curso" name="conteudo_curso" required style="min-height: 200px;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-salvar">➕ Publicar no Curso Saúde 10</button>
+                </form>
+
+                <div class="grid-ebooks" style="margin-top: 24px;">
+                    <?php foreach ($cursos as $curso): ?>
+                        <div class="card-ebook">
+                            <?php if (!empty($curso['imagem_capa'])): ?>
+                                <img src="<?= htmlspecialchars((string) $curso['imagem_capa'], ENT_QUOTES, 'UTF-8') ?>" alt="Capa" style="width:100%;border-radius:8px;margin-bottom:10px;object-fit:cover;max-height:160px;">
+                            <?php endif; ?>
+                            <h3><?= htmlspecialchars((string) ($curso['titulo'] ?? '')) ?></h3>
+                            <p style="font-size:0.82rem; color: var(--muted);">
+                                📅 <?= htmlspecialchars(date('d/m/Y', strtotime((string) ($curso['data_publicacao'] ?? 'now')))) ?>
+                                &nbsp;·&nbsp; ✍️ <?= htmlspecialchars((string) ($curso['autor'] ?? '')) ?>
+                            </p>
+                            <form method="POST" onsubmit="return confirm('Deseja excluir este conteúdo?');" style="margin-top: 8px;">
+                                <input type="hidden" name="acao" value="excluir_curso">
+                                <input type="hidden" name="id_curso" value="<?= htmlspecialchars((string) ($curso['id'] ?? '')) ?>">
+                                <button type="submit" class="btn btn-editar" style="background:#b73232;">🗑️ Excluir</button>
+                            </form>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <?php if (empty($cursos)): ?>
+                    <p style="margin-top: 16px; color: var(--muted);">Nenhum conteúdo publicado no Curso Saúde 10 ainda.</p>
+                <?php endif; ?>
+            </div>
+
         <?php endif; // fim do else (não é trocar_senha) ?>
         <?php endif; // fim do if não é trocar_senha ?>
     </div>

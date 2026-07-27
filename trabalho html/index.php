@@ -315,6 +315,23 @@ $ebooks_home = array_slice($ebooks, 0, 3);
         </div>
     </section>
 
+    <section id="curso" class="learn-section" style="background:#f5faf9;">
+        <div class="container">
+            <div class="section-header">
+                <p class="eyebrow">Educação em Saúde</p>
+                <h2>Curso Saúde 10</h2>
+                <p>Conteúdos exclusivos do Dr. Charles Genehr para você evoluir na sua jornada de saúde integral.</p>
+            </div>
+
+            <div class="learn-list">
+                <a href="curso-saude-10.php" class="learn-list-item">
+                    <span class="learn-list-category">Curso Saúde 10</span>
+                    <span class="learn-list-title">Ver todos os conteúdos do Curso Saúde 10</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section id="depoimentos" class="testimonials">
         <div class="container">
             <div class="section-header">

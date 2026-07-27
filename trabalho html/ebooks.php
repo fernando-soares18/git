@@ -73,6 +73,32 @@ $ebooks_paginados = array_slice($ebooks, $offset, $por_pagina);
         gap: 20px;
     }
 
+    .ebook-capa {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        object-fit: cover;
+        max-height: 220px;
+        display: block;
+    }
+
+    .ebook-capa-placeholder {
+        width: 100%;
+        height: 200px;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        background: linear-gradient(135deg, #1f6b75 0%, #2c8b80 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: #fff;
+    }
+
+    .ebook-capa-placeholder svg { opacity: 0.9; }
+    .ebook-capa-placeholder span { font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; }
+
     .ebooks-pagination {
         margin-top: 28px;
         display: flex;
@@ -177,9 +203,25 @@ $ebooks_paginados = array_slice($ebooks, $offset, $por_pagina);
             <div class="ebooks-grid">
                 <?php foreach ($ebooks_paginados as $ebook): ?>
                     <article class="card ebook-card">
+                        <?php if (!empty($ebook['capa'])): ?>
+                            <img
+                                src="<?= htmlspecialchars((string) $ebook['capa'], ENT_QUOTES, 'UTF-8') ?>"
+                                alt="Capa do eBook"
+                                class="ebook-capa"
+                            >
+                        <?php else: ?>
+                            <div class="ebook-capa-placeholder">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                <span>PDF Clínico</span>
+                            </div>
+                        <?php endif; ?>
                         <h3><?= htmlspecialchars((string) ($ebook['titulo'] ?? 'eBook'), ENT_QUOTES, 'UTF-8') ?></h3>
                         <p><?= htmlspecialchars((string) ($ebook['descricao'] ?? 'Conteúdo em breve.'), ENT_QUOTES, 'UTF-8') ?></p>
-                        <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#'), ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="text-link">Acessar eBook</a>
+                        <?php if (!empty($ebook['download'])): ?>
+                            <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#'), ENT_QUOTES, 'UTF-8') ?>" download class="text-link">⬇️ Baixar PDF</a>
+                        <?php else: ?>
+                            <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#'), ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="text-link">Acessar eBook</a>
+                        <?php endif; ?>
                     </article>
                 <?php endforeach; ?>
             </div>

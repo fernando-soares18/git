@@ -915,7 +915,7 @@ footer{
 }
 
 .learn-list-category{
-    font-size:0.8rem;
+    font-size:1.1rem;
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:0.5px;
@@ -923,7 +923,7 @@ footer{
 }
 
 .learn-list-title{
-    font-size:1.25rem;
+    font-size:1.45rem;
     font-weight:600;
     color:var(--text);
     line-height:1.4;
@@ -948,7 +948,7 @@ footer{
     }
 
     .learn-list-title{
-        font-size:1.1rem;
+        font-size:1.25rem;
     }
 }
 
@@ -962,10 +962,10 @@ footer{
     }
 
     .learn-list-category{
-        font-size:0.75rem;
+        font-size:0.95rem;
     }
 
     .learn-list-title{
-        font-size:1rem;
+        font-size:1.1rem;
     }
 }
