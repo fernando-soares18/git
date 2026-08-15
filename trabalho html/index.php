@@ -89,9 +89,9 @@ $ebooks_home = array_slice($ebooks, 0, 3);
         <nav id="menu" class="nav-links">
             <a href="#home">Início</a>
             <a href="#sobre">Sobre</a>
-            <a href="#especialidades">Especialidades</a>
+            <a href="#especialidades">Diferenciais</a>
             <a href="#artigos">Artigos</a>
-            <a href="#depoimentos">Depoimentos</a>
+            <a href="ebooks.php">eBooks</a>
             <a href="#contato">Contato</a>
         </nav>
 
@@ -235,8 +235,8 @@ $ebooks_home = array_slice($ebooks, 0, 3);
     <section id="especialidades" class="services">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Especialidades</p>
-                <h2>Como posso te ajudar</h2>
+                <p class="eyebrow">Diferenciais</p>
+                <h2>O que faz a nossa abordagem ser única</h2>
                 <p>Atendimentos voltados para saúde da pele, metabolismo, longevidade e bem-estar, com foco em diagnóstico preciso e tratamento personalizado.</p>
             </div>
 
@@ -279,15 +279,15 @@ $ebooks_home = array_slice($ebooks, 0, 3);
     <section id="artigos" class="learn-section">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Aprenda Conosco</p>
-                <h2>Conhecimento para sua saúde integral</h2>
+                <p class="eyebrow">Dr. Charles | Saúde Ótima</p>
+                <h2>Dr. Charles | Saúde Ótima</h2>
                 <p>Explore tópicos essenciais sobre nutrição, bem-estar, medicina integrativa e estilo de vida saudável.</p>
             </div>
 
             <div class="learn-list">
                 <a href="comida-10.php" class="learn-list-item">
                     <span class="learn-list-category">Comida 10</span>
-                    <span class="learn-list-title">Ver artigos de alimentação (Comida 10)</span>
+                    <span class="learn-list-title">Alimentação</span>
                 </a>
 
                 <a href="mente-10.php" class="learn-list-item">
@@ -297,7 +297,7 @@ $ebooks_home = array_slice($ebooks, 0, 3);
 
                 <a href="corpo-10.php" class="learn-list-item">
                     <span class="learn-list-category">Corpo 10</span>
-                    <span class="learn-list-title">Movimento, circulação e vitalidade corpórea</span>
+                    <span class="learn-list-title">Movimento e vitalidade corpórea</span>
                 </a>
 
                 <a href="sono-10.php" class="learn-list-item">
@@ -315,44 +315,31 @@ $ebooks_home = array_slice($ebooks, 0, 3);
         </div>
     </section>
 
-    <section id="curso" class="learn-section" style="background:#f5faf9;">
+    <section id="ebooks" class="testimonials">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Educação em Saúde</p>
-                <h2>Curso Saúde 10</h2>
-                <p>Conteúdos exclusivos do Dr. Charles Genehr para você evoluir na sua jornada de saúde integral.</p>
-            </div>
-
-            <div class="learn-list">
-                <a href="curso-saude-10.php" class="learn-list-item">
-                    <span class="learn-list-category">Curso Saúde 10</span>
-                    <span class="learn-list-title">Ver todos os conteúdos do Curso Saúde 10</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="depoimentos" class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <p class="eyebrow">Depoimentos</p>
-                <h2>Pacientes que encontraram um novo caminho</h2>
+                <h2>Relatos de pacientes</h2>
             </div>
 
             <div class="cards">
                 <article class="card testimonial-card">
-                    <p>"Excelente atendimento, acolhimento e uma abordagem muito completa. Senti que realmente me entenderam."</p>
-                    <strong> Ana P.</strong>
+                    <p>“Há 6 anos o senhor acompanha minha saúde com atenção e carinho. Nunca vou esquecer como o senhor me escuta e resolve tudo com tanto profissionalismo. É uma honra ter um médico como o senhor. Minha gratidão é imensa.”</p>
+                    <strong>Gema</strong>
                 </article>
 
                 <article class="card testimonial-card">
-                    <p>"Mudou minha qualidade de vida. As orientações foram claras, objetivas e muito bem personalizadas."</p>
-                    <strong> Marcos T.</strong>
+                    <p>“Olá, Dr. Charles! Eu sou neta da Gema e, apesar de não conhecê-lo pessoalmente, já ouvi falar muito sobre o senhor. Minha avó sempre comenta com muito carinho sobre o seu atendimento, sua atenção e o cuidado com ela ao longo desses anos. É muito reconfortante saber que ela está sendo acompanhada por um profissional em quem confia tanto.”</p>
+                    <strong>Vanessa</strong>
                 </article>
 
                 <article class="card testimonial-card">
-                    <p>"Profissionalismo, cuidado e resultados. Recomendo para quem busca uma abordagem mais humana."</p>
-                    <strong> Carla R.</strong>
+                    <p>“Conhecimento, comprometimento e profissionalismo na prática: são exatamente os requisitos que um paciente precisa para construir uma saúde integral.”</p>
+                    <strong>Lezenita</strong>
+                </article>
+
+                <article class="card testimonial-card">
+                    <p>“O Dr. Charles é um médico integral, que explica com propriedade e muita autonomia sobre a nossa saúde, orientando com clareza os procedimentos e ações necessários para uma boa recuperação. É muito atencioso e investigativo, sendo extremamente assertivo em relação ao problema de saúde e ao tratamento adequado. Estou com ele há 10 anos e me sinto muito feliz e mais saudável, tendo-o como meu médico.”</p>
+                    <strong>Fabiana H.</strong>
                 </article>
             </div>
         </div>
@@ -361,14 +348,15 @@ $ebooks_home = array_slice($ebooks, 0, 3);
     <section class="ebooks">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">Ebooks</p>
-                <h2>Conteúdos gratuitos para você</h2>
+                <p class="eyebrow">eBooks</p>
+                <h2>Conteúdos para você</h2>
                 <p>Explore materiais que ajudam a entender melhor a saúde da pele, nutrição e bem-estar integral.</p>
             </div>
 
             <div class="cards">
                 <?php foreach ($ebooks_home as $ebook): ?>
                     <article class="card ebook-card">
+                        <img class="ebook-cover" src="<?= htmlspecialchars((string) ($ebook['capa'] ?? $ebook['imagem'] ?? 'assets/ebook-cover-placeholder.svg'), ENT_QUOTES, 'UTF-8') ?>" alt="Capa do eBook <?= htmlspecialchars((string) ($ebook['titulo'] ?? 'eBook'), ENT_QUOTES, 'UTF-8') ?>">
                         <h3><?= htmlspecialchars((string) ($ebook['titulo'] ?? 'eBook'), ENT_QUOTES, 'UTF-8') ?></h3>
                         <p><?= htmlspecialchars((string) ($ebook['descricao'] ?? 'Conteúdo em breve.'), ENT_QUOTES, 'UTF-8') ?></p>
                         <a href="<?= htmlspecialchars((string) ($ebook['link'] ?? '#'), ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="text-link">Acessar eBook</a>

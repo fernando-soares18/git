@@ -24,6 +24,25 @@ usort($sono10, static function (array $a, array $b): int {
     return $db <=> $da;
 });
 
+$sono10Unicos = [];
+$idsVistos = [];
+
+foreach ($sono10 as $artigo) {
+    $id = trim((string) ($artigo['id'] ?? ''));
+
+    if ($id !== '' && isset($idsVistos[$id])) {
+        continue;
+    }
+
+    if ($id !== '') {
+        $idsVistos[$id] = true;
+    }
+
+    $sono10Unicos[] = $artigo;
+}
+
+$sono10 = array_slice($sono10Unicos, 0, 5);
+
 function resumo_texto(string $html, int $max = 220): string
 {
     $texto = trim(strip_tags($html));
@@ -61,13 +80,19 @@ function resumo_texto(string $html, int $max = 220): string
             color: #fff;
         }
 
+        .cat-hero .eyebrow {
+            font-size: 1.04rem;
+        }
+
         .cat-hero h1 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(2.35rem, 4.8vw, 3.6rem);
             margin-bottom: 12px;
         }
 
         .cat-hero p {
             max-width: 780px;
+            font-size: 1.12rem;
+            line-height: 1.75;
             color: rgba(255, 255, 255, 0.9);
         }
 
@@ -152,19 +177,19 @@ function resumo_texto(string $html, int $max = 220): string
             flex-wrap: wrap;
             gap: 10px;
             color: #5f6f6a;
-            font-size: 0.85rem;
+            font-size: 1.04rem;
         }
 
         .cat-card h2 {
-            font-size: 1.12rem;
-            line-height: 1.35;
+            font-size: 1.48rem;
+            line-height: 1.4;
             color: #1f6b75;
         }
 
         .cat-card p {
             color: #4f605b;
-            font-size: 0.95rem;
-            line-height: 1.55;
+            font-size: 1.16rem;
+            line-height: 1.8;
         }
 
         .cat-card a {
@@ -192,9 +217,9 @@ function resumo_texto(string $html, int $max = 220): string
         <nav id="menu" class="nav-links">
             <a href="/#home">Início</a>
             <a href="/#sobre">Sobre</a>
-            <a href="/#especialidades">Especialidades</a>
+            <a href="/#especialidades">Diferenciais</a>
             <a href="/#artigos">Artigos</a>
-            <a href="/#depoimentos">Depoimentos</a>
+            <a href="ebooks.php">eBooks</a>
             <a href="/#contato">Contato</a>
         </nav>
 

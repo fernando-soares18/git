@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Capa de eBook</title>
+  <desc id="desc">Imagem de capa padrão para eBooks sem ilustração.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7fbfa"/>
+      <stop offset="100%" stop-color="#eaf7f3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+  <rect x="120" y="140" width="960" height="1320" rx="48" fill="#ffffff" stroke="#d6ebe4" stroke-width="8"/>
+  <g fill="#1f6b75">
+    <rect x="220" y="320" width="760" height="28" rx="14" opacity="0.9"/>
+    <rect x="220" y="390" width="620" height="24" rx="12" opacity="0.75"/>
+    <rect x="220" y="454" width="680" height="24" rx="12" opacity="0.65"/>
+  </g>
+  <circle cx="600" cy="860" r="170" fill="#2c8b80" opacity="0.15"/>
+  <path d="M525 860h150v34H525z" fill="#1f6b75" opacity="0.8"/>
+  <path d="M510 918h180v20H510z" fill="#1f6b75" opacity="0.55"/>
+  <text x="600" y="1230" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="52" fill="#1f6b75">eBook</text>
+  <text x="600" y="1300" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="34" fill="#5f6f6a">Conteúdo em breve</text>
+</svg>
