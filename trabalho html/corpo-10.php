@@ -71,7 +71,7 @@ function resumo_texto(string $html, int $max = 220): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corpo 10 | Dr. Charles Genehr</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .cat-hero {
             margin-top: 84px;
@@ -209,18 +209,18 @@ function resumo_texto(string $html, int $max = 220): string
 <body>
 <header class="site-header">
     <div class="container nav-bar">
-        <a class="logo" href="/">
+        <a class="logo" href="index.php">
             <img src="assets/logo-dr-charles-12.png" alt="Logo Dr. Charles Genehr" class="header-logo">
             <span>Dr. Charles Genehr</span>
         </a>
 
         <nav id="menu" class="nav-links">
-            <a href="/#home">Início</a>
-            <a href="/#sobre">Sobre</a>
-            <a href="/#especialidades">Diferenciais</a>
-            <a href="/#artigos">Artigos</a>
+            <a href="index.php#home">Início</a>
+            <a href="index.php#sobre">Sobre</a>
+            <a href="index.php#especialidades">Diferenciais</a>
+            <a href="index.php#artigos">Artigos</a>
             <a href="ebooks.php">eBooks</a>
-            <a href="/#contato">Contato</a>
+            <a href="index.php#contato">Contato</a>
         </nav>
 
         <button class="hamburguer" id="hamburguer" aria-label="Abrir menu">☰</button>
@@ -233,7 +233,7 @@ function resumo_texto(string $html, int $max = 220): string
             <p class="eyebrow" style="color:#d5f0e8;">Corpo 10</p>
             <h1>Artigos para vitalidade corporal</h1>
             <p>Conteúdos organizados em boxes separados, com título, data, autor e resumo de cada artigo.</p>
-            <a class="btn cat-back" href="/#artigos">Voltar ao site</a>
+            <a class="btn cat-back" href="index.php#artigos">Voltar ao site</a>
         </div>
     </section>
 

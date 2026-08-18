@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="3200"
+   height="2000"
+   viewBox="0 0 3200 2000"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="logo-dr-charles-inpi.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="ringGrad"
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#123970"
+         id="stop1" />
+      <stop
+         offset="100%"
+         stop-color="#6ca63f"
+         id="stop2" />
+    </linearGradient>
+  </defs>
+  <rect
+     x="0"
+     y="0"
+     width="3200"
+     height="2000"
+     fill="#ffffff"
+     fill-opacity="0"
+     id="rect2" />
+  <!-- Circular monogram frame -->
+  <circle
+     cx="1600"
+     cy="520"
+     r="430"
+     fill="none"
+     stroke="url(#ringGrad)"
+     stroke-width="16"
+     id="circle2" />
+  <!-- Monogram letters -->
+  <text
+     x="1360"
+     y="560"
+     font-family="Times New Roman, Georgia, serif"
+     font-size="520"
+     fill="#10356d"
+     id="text2">D</text>
+  <text
+     x="1520"
+     y="740"
+     font-family="Times New Roman, Georgia, serif"
+     font-size="500"
+     fill="#10356d"
+     id="text3">C</text>
+  <!-- Leaf / human symbol -->
+  <circle
+     cx="2050"
+     cy="450"
+     r="44"
+     fill="#6ea83e"
+     id="circle3" />
+  <path
+     d="M2120,360 C2072,430 2058,520 2084,622 C2202,545 2275,452 2294,377 C2270,405 2232,426 2184,442 C2172,408 2180,380 2120,360 Z"
+     fill="#6ea83e"
+     id="path3" />
+  <path
+     d="M1930,588 C1966,470 2048,408 2142,408 C2106,472 2072,546 2068,622 C2002,642 1954,630 1930,588 Z"
+     fill="#74b147"
+     id="path4" />
+  <!-- Brand name -->
+  <text
+     x="350"
+     y="1120"
+     font-family="Times New Roman, Georgia, serif"
+     font-size="230"
+     fill="#10356d"
+     id="text4">Dr. Charles</text>
+  <text
+     x="1450"
+     y="1120"
+     font-family="Times New Roman, Georgia, serif"
+     font-size="230"
+     fill="#6ea83e"
+     id="text5">| Saúde Ótima</text>
+  <!-- Tagline -->
+  <text
+     x="640"
+     y="1325"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="86"
+     letter-spacing="24"
+     fill="#10356d"
+     id="text6">CIÊNCIA, PREVENÇÃO E LONGEVIDADE</text>
+  <text
+     x="1028"
+     y="1460"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="86"
+     letter-spacing="20"
+     fill="#10356d"
+     id="text7">PARA UMA VIDA MELHOR.</text>
+  <!-- Horizontal lines -->
+  <line
+     x1="300"
+     y1="1435"
+     x2="900"
+     y2="1435"
+     stroke="#10356d"
+     stroke-width="10"
+     id="line7" />
+  <line
+     x1="2300"
+     y1="1435"
+     x2="2900"
+     y2="1435"
+     stroke="#10356d"
+     stroke-width="10"
+     id="line8" />
+</svg>

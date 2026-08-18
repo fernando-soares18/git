@@ -1,0 +1,27 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="360" fill="white"/>
+
+  <circle cx="180" cy="130" r="108" stroke="url(#ring)" stroke-width="6"/>
+
+  <text x="123" y="130" fill="#11356D" font-family="Georgia, 'Times New Roman', serif" font-size="112" font-weight="400">D</text>
+  <text x="168" y="176" fill="#11356D" font-family="Georgia, 'Times New Roman', serif" font-size="112" font-weight="400">C</text>
+
+  <circle cx="280" cy="99" r="12" fill="#6EA83D"/>
+  <path d="M302 84C286 101 284 121 288 138C306 126 317 109 320 91C317 95 311 99 302 104C299 97 299 91 302 84Z" fill="#6EA83D"/>
+  <path d="M242 132C250 108 266 96 286 97C278 108 272 123 272 138C258 142 248 140 242 132Z" fill="#75B146"/>
+
+  <text x="32" y="264" fill="#11356D" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="400">Dr. Charles</text>
+  <text x="478" y="264" fill="#6EA83D" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="400">| Saúde Ótima</text>
+
+  <text x="154" y="316" fill="#11356D" font-family="'Poppins', Arial, sans-serif" font-size="28" letter-spacing="0.18em">CIÊNCIA, PREVENÇÃO E LONGEVIDADE</text>
+
+  <line x1="26" y1="307" x2="126" y2="307" stroke="#11356D" stroke-width="4"/>
+  <line x1="1008" y1="307" x2="1174" y2="307" stroke="#11356D" stroke-width="4"/>
+
+  <defs>
+    <linearGradient id="ring" x1="67" y1="30" x2="290" y2="237" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#11356D"/>
+      <stop offset="1" stop-color="#6EA83D"/>
+    </linearGradient>
+  </defs>
+</svg>

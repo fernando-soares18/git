@@ -663,7 +663,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>📝 Painel de Artigos</h1>
             <p>Gerencie todos os artigos do blog facilmente</p>
             <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
-                <a href="/" class="voltar">← Voltar ao Site</a>
+                <a href="../index.php" class="voltar">← Voltar ao Site</a>
                 <a href="?acao=trocar_senha" class="voltar" style="background:#2c8b80;">🔑 Alterar Senha</a>
                 <a href="?logout=1" class="voltar" style="background:#c0392b;">🚪 Sair</a>
             </div>

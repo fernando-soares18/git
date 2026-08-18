@@ -20,7 +20,7 @@ if (file_exists($artigosFile)) {
 
 $id = (string) ($_GET['id'] ?? '');
 if ($id === '' || !isset($artigos[$id])) {
-    header('Location: /#artigos');
+    header('Location: index.php#artigos');
     exit;
 }
 
@@ -38,7 +38,7 @@ $conteudo = (string) ($artigo['conteudo'] ?? 'Conteúdo indisponível.');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') ?> | Dr. Charles Genehr</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .article-wrap { max-width: 900px; margin: 110px auto 60px; padding: 0 18px; }
         .article-meta { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 22px; }
@@ -52,19 +52,19 @@ $conteudo = (string) ($artigo['conteudo'] ?? 'Conteúdo indisponível.');
 <body>
 <header class="site-header">
     <div class="container nav-bar">
-        <a class="logo" href="/"><img src="assets/logo-dr-charles-12.png" alt="Logo Dr. Charles Genehr" class="header-logo"><span>Dr. Charles Genehr</span></a>
+        <a class="logo" href="index.php"><img src="assets/logo-dr-charles-12.png" alt="Logo Dr. Charles Genehr" class="header-logo"><span>Dr. Charles Genehr</span></a>
         <nav id="menu" class="nav-links">
-            <a href="/#home">Início</a>
-            <a href="/#artigos">Artigos</a>
-            <a href="/ebooks.php">eBooks</a>
-            <a href="/#contato">Contato</a>
+            <a href="index.php#home">Início</a>
+            <a href="index.php#artigos">Artigos</a>
+            <a href="ebooks.php">eBooks</a>
+            <a href="index.php#contato">Contato</a>
         </nav>
         <button class="hamburguer" id="hamburguer" aria-label="Abrir menu">☰</button>
     </div>
 </header>
 
 <main class="article-wrap">
-    <a class="btn" href="/#artigos" style="margin-bottom:18px;display:inline-block;">Voltar aos artigos</a>
+    <a class="btn" href="index.php#artigos" style="margin-bottom:18px;display:inline-block;">Voltar aos artigos</a>
     <h1><?= htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') ?></h1>
     <div class="article-meta">
         <span><?= htmlspecialchars($categoria, ENT_QUOTES, 'UTF-8') ?></span>

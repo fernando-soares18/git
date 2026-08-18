@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=index.php">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecionando...</title>
-<script>
-window.location.replace('index.php');
-</script>
-</head>
-<body>
-<p>Redirecionando para a versao dinamica do site. <a href="index.php">Clique aqui se nao redirecionar</a>.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. Charles Genehr</title>
+    <meta name="description" content="Página institucional do Dr. Charles Genehr com apresentação, especialidades e contato." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Medicina Integrativa</p>
+        <h1>Dr. Charles Genehr</h1>
+        <p class="lead">
+          Atendimento humanizado, acolhimento e uma abordagem cuidadosa para o seu bem-estar.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#contato">Agende sua consulta</a>
+          <a class="btn btn--secondary" href="#sobre">Conheça mais</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <img src="assets/logo-dr-charles-inpi.svg" alt="Logo do Dr. Charles Genehr" />
+      </div>
+    </header>
+
+    <main>
+      <section id="sobre" class="section">
+        <h2>Sobre o doutor</h2>
+        <p>
+          O Dr. Charles Genehr atua com base em escuta ativa, clínica integrada e atenção individualizada,
+          oferecendo orientação profissional com respeito, segurança e proximidade.
+        </p>
+      </section>
+
+      <section class="section section--cards">
+        <article class="card">
+          <h3>Atendimento personalizado</h3>
+          <p>Estratégias pensadas para cada contexto com foco no cuidado integral.</p>
+        </article>
+        <article class="card">
+          <h3>Abordagem acolhedora</h3>
+          <p>Ambiente tranquilo para que você se sinta à vontade para falar e ser ouvido.</p>
+        </article>
+        <article class="card">
+          <h3>Orientação profissional</h3>
+          <p>Suporte claro e seguro em cada etapa do acompanhamento.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer id="contato" class="footer">
+      <h2>Entre em contato</h2>
+      <p>Para saber mais ou agendar um atendimento, fale conosco.</p>
+      <a class="btn btn--primary" href="mailto:contato@drcharles.com">contato@drcharles.com</a>
+    </footer>
+  </body>
 </html>

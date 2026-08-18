@@ -49,7 +49,7 @@ $ebooks_paginados = array_slice($ebooks, $offset, $por_pagina);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>eBooks | Dr. Charles Genehr</title>
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="style.css">
 <style>
     .ebooks-hero {
         margin-top: 84px;
@@ -144,18 +144,18 @@ $ebooks_paginados = array_slice($ebooks, $offset, $por_pagina);
 <body>
 <header class="site-header">
     <div class="container nav-bar">
-        <a class="logo" href="/">
+        <a class="logo" href="index.php">
             <img src="assets/logo-dr-charles-12.png" alt="Logo Dr. Charles Genehr" class="header-logo">
             <span>Dr. Charles Genehr</span>
         </a>
 
         <nav id="menu" class="nav-links">
-            <a href="/#home">Início</a>
-            <a href="/#sobre">Sobre</a>
-            <a href="/#especialidades">Diferenciais</a>
-            <a href="/#artigos">Artigos</a>
+            <a href="index.php#home">Início</a>
+            <a href="index.php#sobre">Sobre</a>
+            <a href="index.php#especialidades">Diferenciais</a>
+            <a href="index.php#artigos">Artigos</a>
             <a href="ebooks.php">eBooks</a>
-            <a href="/#contato">Contato</a>
+            <a href="index.php#contato">Contato</a>
         </nav>
 
         <button class="hamburguer" id="hamburguer" aria-label="Abrir menu">☰</button>
@@ -168,7 +168,7 @@ $ebooks_paginados = array_slice($ebooks, $offset, $por_pagina);
             <p class="eyebrow" style="color:#d5f0e8;">eBooks</p>
             <h1>Biblioteca rica em materiais para sua saúde</h1>
             <p>Aqui estão todos os eBooks cadastrados.</p>
-            <a class="btn ebooks-back" href="/#home">Voltar ao site</a>
+            <a class="btn ebooks-back" href="index.php#home">Voltar ao site</a>
         </div>
     </section>
 

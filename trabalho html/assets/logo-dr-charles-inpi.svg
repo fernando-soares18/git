@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2600" height="1700" viewBox="0 0 2600 1700" version="1.1">
+  <defs>
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f3268"/>
+      <stop offset="100%" stop-color="#6ea83e"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="2600" height="1700" fill="#ffffff" fill-opacity="0"/>
+
+  <circle cx="1300" cy="420" r="300" fill="none" stroke="url(#ringGrad)" stroke-width="10"/>
+
+  <text x="1122" y="463" font-family="Times New Roman, Georgia, serif" font-size="360" fill="#0f3268">D</text>
+  <text x="1238" y="592" font-family="Times New Roman, Georgia, serif" font-size="335" fill="#0f3268">C</text>
+
+  <circle cx="1688" cy="334" r="22" fill="#71ad40"/>
+  <path d="M1735 300C1698 351 1683 416 1696 477C1778 431 1839 374 1870 306C1840 336 1800 357 1748 369C1744 340 1749 316 1735 300Z" fill="#71ad40"/>
+  <path d="M1612 500C1626 415 1679 362 1743 350C1711 406 1695 457 1691 511C1651 522 1625 518 1612 500Z" fill="#6aa63b"/>
+
+  <text x="235" y="920" font-family="Times New Roman, Georgia, serif" font-size="155" fill="#0f3268">Dr. Charles</text>
+  <text x="1215" y="920" font-family="Times New Roman, Georgia, serif" font-size="155" fill="#6ea83e">| Sa&#250;de &#211;tima</text>
+
+  <text x="405" y="1065" font-family="Arial, Helvetica, sans-serif" font-size="66" letter-spacing="14" fill="#0f3268">CI&#202;NCIA, PREVEN&#199;&#195;O E LONGEVIDADE</text>
+  <text x="664" y="1180" font-family="Arial, Helvetica, sans-serif" font-size="62" letter-spacing="11" fill="#0f3268">PARA UMA VIDA MELHOR.</text>
+
+  <line x1="228" y1="1160" x2="610" y2="1160" stroke="#0f3268" stroke-width="7"/>
+  <line x1="1990" y1="1160" x2="2372" y2="1160" stroke="#0f3268" stroke-width="7"/>
+</svg>

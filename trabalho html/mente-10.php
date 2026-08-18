@@ -71,7 +71,7 @@ function resumo_texto(string $html, int $max = 220): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mente 10 | Dr. Charles Genehr</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .cat-hero {
             margin-top: 84px;
